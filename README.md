@@ -19,35 +19,35 @@ This is especially important in **medical domains**, where misinformation can ha
 ## How System Works? System Architecture Overview:
 This project integrates Retrieval-Augmented Generation (RAG) with Agentic AI to ensure highly accurate, trustworthy answers from medical PDFs. Here’s how the system works:
 
-1- User Query Input
+**1- User Query Input**
 The user submits a natural language question (e.g., "What are Meglitinides and how do they work?").
 
-2- Query Embedding with BGE-small
+**2- Query Embedding with BGE-small**
 The question is transformed into a semantic vector using the BAAI/bge-small-en-v1.5 model, enabling meaningful similarity search.
 
-3- Semantic Search with FAISS
+**3- Semantic Search with FAISS**
 The vector is used to search a FAISS index of precomputed document embeddings (from chunked PDFs) to retrieve the most relevant text passages.
 
-4- Re-Ranking via Agent
+**4- Re-Ranking via Agent**
 Retrieved chunks are passed to a Re-Ranker Agent (powered by the Ollama llama3 model), which evaluates and ranks them based on their relevance to the user’s question.
 
-5- Validation via AI Agent
+**5- Validation via Agent**
 A Validator Agent analyzes each top chunk and determines if it directly and accurately answers the question. It responds with "YES" or "NO" along with justification.
 
-6- Answer Assembly
+**6- Answer Assembly**
 Only the validated "YES" chunks are collected and merged to generate the final comprehensive answer. This ensures precision, relevance, and factual integrity.
 
 
 
 ## Key Components
-1.  RAG Base
+**1.  RAG Base**
 - Embedding Model: bge-small (sentence-transformers) for efficient, high-quality vector representations.
 
 - Vector Store: FAISS index to search a large set of document chunks.
 
 - Document Chunking: Fine-grained splitting to maximize retrieval relevance.
 
-2. Agentic Enhancement
+**2. Agentic Enhancement**
 - Re-Ranker Agent: Given a user query and multiple document chunks, it reorders them based on relevance.
 
 - Validator Agent: For each top chunk, this agent decides:
@@ -58,12 +58,12 @@ Only the validated "YES" chunks are collected and merged to generate the final c
 
 - Responds with "YES" - reason or "NO" - reason.
 
-3. Accuracy Pipeline
-Only validated chunks are included in the final answer.
+**3. Accuracy Pipeline**
+- Only validated chunks are included in the final answer.
 
-The system explicitly rejects vague, partial, or non-relevant chunks using agent validation.
+- The system explicitly rejects vague, partial, or non-relevant chunks using agent validation.
 
-This dramatically reduces hallucination risk — a common RAG issue.
+- This dramatically reduces hallucination risk — a common RAG issue.
 
 ```bash
 query = "What are Meglitinides medicines and how they work?"
@@ -76,9 +76,9 @@ query = "What are Meglitinides medicines and how they work?"
 ## Inference Engine
 This project uses Ollama to run the language models locally with GPU acceleration.
 
-- Model Used: deepseek-r1:70b
+- Model Used: **deepseek-r1:70b**
 
-- Usage: Both the re_ranker_agent and validator_agent run on deepseek-r1:70b via the ollama_client.
+- Usage: Both the re_ranker_agent and validator_agent run on **deepseek-r1:70b** via the ollama_client.
 
 - Why Ollama? It allows for fast, secure, and customizable local LLM inference perfect for handling sensitive or regulated content like medical text.
 - 
@@ -107,7 +107,7 @@ Combination drugs like PrandiMet combine repaglinide with metformin for dual act
 - Support multi-document reasoning over PDF collections.
 
 ## Acknowledgements
-Built with ❤️ using:
+Built by **Abdullah** using:
 
 - [LangChain / AutoGen agents]
 

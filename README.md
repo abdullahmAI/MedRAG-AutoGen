@@ -16,7 +16,7 @@ This is especially important in **medical domains**, where misinformation can ha
 
 ---
 
-## 🧠 Architecture Overview
+##  Architecture Overview
 
 ```mermaid
 flowchart TD

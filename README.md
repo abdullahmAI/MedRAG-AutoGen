@@ -16,21 +16,28 @@ This is especially important in **medical domains**, where misinformation can ha
 
 ---
 
-##  Architecture Overview
+## How System Works? System Architecture Overview:
+This project integrates Retrieval-Augmented Generation (RAG) with Agentic AI to ensure highly accurate, trustworthy answers from medical PDFs. Here’s how the system works:
 
-```mermaid
-flowchart TD
-    Q[User Query]
-    Q --> E[Encode Query with BGE-small]
-    E --> S[FAISS Search]
-    S --> C[Candidate Chunks]
-    C --> R[Re-Ranker Agent]
-    R --> V[Validator Agent]
-    V --> F[Filtered Chunks (Validated)]
+1- User Query Input
+The user submits a natural language question (e.g., "What are Meglitinides and how do they work?").
+
+2- Query Embedding with BGE-small
+The question is transformed into a semantic vector using the BAAI/bge-small-en-v1.5 model, enabling meaningful similarity search.
+
+3- Semantic Search with FAISS
+The vector is used to search a FAISS index of precomputed document embeddings (from chunked PDFs) to retrieve the most relevant text passages.
+
+4- Re-Ranking via Agent
+Retrieved chunks are passed to a Re-Ranker Agent (powered by the Ollama llama3 model), which evaluates and ranks them based on their relevance to the user’s question.
+
+5- Validation via AI Agent
+A Validator Agent analyzes each top chunk and determines if it directly and accurately answers the question. It responds with "YES" or "NO" along with justification.
+
+6- Answer Assembly
+Only the validated "YES" chunks are collected and merged to generate the final comprehensive answer. This ensures precision, relevance, and factual integrity.
 
 
-    F --> A[Final Answer Assembly]
-```
 
 ## Key Components
 1.  RAG Base
